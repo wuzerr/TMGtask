@@ -1,4 +1,5 @@
 import json
+import jsbeautifier
 
 with open("data_test.json",'r') as f:
     obj = json.loads(f.read())
@@ -10,9 +11,12 @@ with open("data_test.json",'r') as f:
     for i in obj:
         if ',' in i['documentType']:
             i['documentType'] = [x.strip() for x in i['documentType'].split(',')]
+
+    options = jsbeautifier.default_options
+    options.indent_size = 2
              
 
 
     open("result2.json","w").write(
-        json.dumps(obj, indent=2, separators=(',', ': '))
+        jsbeautifier.beautify(json.dumps(obj),options)
     )   
